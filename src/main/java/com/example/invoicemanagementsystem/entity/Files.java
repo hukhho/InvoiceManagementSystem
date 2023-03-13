@@ -17,6 +17,11 @@ public class Files {
     @Column(name = "File_path")
     private String filePath;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+    //private Date uploadedDate;
+
+
     @Id
     @Column(name = "Order_id")
     private int orderId;

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type='text/xsl' href='http://0314347098.easyinvoice.com.vn/InvoiceTemplate/GetXSLTbyPattern/63247?pattern=01GTKT0/001' ?>
+<Invoice>
+   <Content Id="SigningData">
+      <Key>T6C3L7N6065317419029982</Key>
+      <ArisingDate>06/09/2021</ArisingDate>
+      <ComFax />
+      <ComName>CÔNG TY TNHH THỦY CANH MIỀN NAM</ComName>
+      <ComTaxCode>0314347098</ComTaxCode>
+      <ComAddress>4/4 Đường Số 2, Phường Hiệp Bình Chánh, Quận Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam</ComAddress>
+      <ComPhone />
+      <ComEmail />
+      <ComBankNo />
+      <ComBankName />
+      <Ikey />
+      <ParentName />
+      <InvoiceName>Hóa đơn giá trị gia tăng</InvoiceName>
+      <InvoicePattern>01GTKT0/001</InvoicePattern>
+      <SerialNo>TC/20E</SerialNo>
+      <InvoiceNo>144</InvoiceNo>
+      <PaymentMethod>TM/CK</PaymentMethod>
+      <CusCode />
+      <CusName>TRƯỜNG CAO ĐẲNG NOVA</CusName>
+      <CusTaxCode>0302947661</CusTaxCode>
+      <CusPhone />
+      <CusAddress>194 Lê Đức Thọ, Phường 6, Quận Gò Vấp, TP Hồ Chí Minh, Việt Nam</CusAddress>
+      <CusBankName />
+      <CusBankNo />
+      <Total>6666667</Total>
+      <VATAmount>333333</VATAmount>
+      <Amount>7000000</Amount>
+      <AmountInWords>Bảy  triệu đồng.</AmountInWords>
+      <Buyer />
+      <VATRate>5</VATRate>
+      <Note />
+      <CusEmails />
+      <amountInWordsL2>Seven million Vietnamese dongs.</amountInWordsL2>
+      <Products>
+         <Product>
+            <Code />
+            <ProdName>Rau các loại</ProdName>
+            <ProdPrice>23809.525</ProdPrice>
+            <ProdQuantity>280</ProdQuantity>
+            <ProdType>1</ProdType>
+            <ProdUnit>kg</ProdUnit>
+            <Pos>1</Pos>
+            <Total>6666667</Total>
+            <Amount>6666667</Amount>
+            <IsDiscountRow>0</IsDiscountRow>
+         </Product>
+      </Products>
+      <GrossValue>0</GrossValue>
+      <GrossValue0>0</GrossValue0>
+      <VatAmount0>0</VatAmount0>
+      <GrossValue5>6666667</GrossValue5>
+      <VatAmount5>333333</VatAmount5>
+      <GrossValue10>0</GrossValue10>
+      <VatAmount10>0</VatAmount10>
+      <GrossValueNDeclared>0</GrossValueNDeclared>
+      <VatAmountNDeclared>0</VatAmountNDeclared>
+      <GrossValueContractor>0</GrossValueContractor>
+      <VatAmountContractor>0</VatAmountContractor>
+      <ExchangeRate>0</ExchangeRate>
+      <CurrencyUnit>VND</CurrencyUnit>
+      <PortalLink>http://0314347098hd.easyinvoice.com.vn</PortalLink>
+      <Hidden>False</Hidden>
+      <SignDate>06/09/2021</SignDate>
+   </Content>
+   <RowPerPage>10</RowPerPage>
+   <qrCodeData>T6C3L7N6065317419029982|01GTKT0/001;TC/20E;0314347098;0302947661;144;7000000;333333;06/09/2021 12:00:00 SA;63247</qrCodeData>
+   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="serSig">
+      <SignedInfo>
+         <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+         <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+         <Reference URI="#SigningData">
+            <Transforms>
+               <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+            <DigestValue>FD92cDHzi8dKuzaulgSOCcCFQFc=</DigestValue>
+         </Reference>
+      </SignedInfo>
+      <SignatureValue>hFucPScx6AVNYjj7Z6h3g1Zwq3qig/ByLNloINRE9FFTbatX3jzu6R82k1O6O+bW4NmD20J1sYIsu+viaVRNOpqAN92NobVLEVkV4yKkEG1FCFFQPzQFm4YgzSh7N8Hrfg1LNXrr7PJ0PI/rpLeIlVEd/t2hoKdWKI0OV8euVS5EXr+fASBdxs5zaFeu1AM/uviC83NNDVTaHe8rqVRNUzsWi4RFAzW9/FSHThuzqRMuFqCtarFTIsmAEmHd1vtIFaMcNkXKoHq+P6kHEM6iJwRsW3oq5isgT+7UQ7wWAkeT/GYdLc+MSy0oCqh1btnTYnPbI4JTWah3wmZ72VNRXw==</SignatureValue>
+      <KeyInfo>
+         <X509Data>
+            <X509Certificate>MIIEdTCCA12gAwIBAgIQVAEOAGGbPudpkfrN/v/32jANBgkqhkiG9w0BAQsFADBWMQswCQYDVQQGEwJWTjEvMC0GA1UECgwmSE4gSU5WRVNUTUVOVCBBTkQgQlVTSU5FU1MgU1VQUE9SVCBKU0MxFjAUBgNVBAMMDU5DLUNBIFNIQS0yNTYwHhcNMjEwNDI2MDI0MjE3WhcNMjQwNDMwMDI0MjE3WjCBpzELMAkGA1UEBhMCVk4xGjAYBgNVBAgMEVRQIEjhu5MgQ2jDrSBNaW5oMS0wKwYDVQQKDCRDw5RORyBUWSBUTkhIIFRI4bumWSBDQU5IIE1J4buATiBOQU0xLTArBgNVBAMMJEPDlE5HIFRZIFROSEggVEjhu6ZZIENBTkggTUnhu4BOIE5BTTEeMBwGCgmSJomT8ixkAQEMDk1TVDowMzE0MzQ3MDk4MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6RBDDUueryrldpHH9973NZwCbC9HRYAVg5/5blqvnbK5NRFC++J+re5Wd4Rsomsk8aTTudxCfzB/CuR+kO/v6dz4DYxflkkmBtsVwcx2AAtzG8oPGi2cVrh5b244DKbp5UtppWYQr1Li8vzAzIv0q1gZbUChZ/JMVxF3MngLZ+PthvkNDJbN/sAzakZZ5ngbRNjzbLR3qLHv9D6g2VbI4uk241ePeCLeQXTR/+RscyAqg4UsaDzNH4livio8/ts7AIPwE2fVy8a7hQfLNczYtUBKW6wUaCVFTwnS3zlFIuWwdSt/qXQuKK30aC7X6Xzo/SXfZMgmddB7LJ9XVQH2pwIDAQABo4HsMIHpMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAU92R6QX/5zOohws0TNWcSuMN6QZwwOgYIKwYBBQUHAQEELjAsMCoGCCsGAQUFBzABhh5odHRwOi8vb2NzcC5uYy1jYS52bi9yZXNwb25kZXIwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMC4GA1UdHwQnMCUwI6AhoB+GHWh0dHA6Ly9jcmwubmMtY2Eudm4vbmMtY2EuY3JsMB0GA1UdDgQWBBSc/vsRuceWIosY9WC+pninm60OZjAOBgNVHQ8BAf8EBAMCBeAwDQYJKoZIhvcNAQELBQADggEBAGai5/JYirXl1YsoWeIHSjrxudXgMyNDknH91Dh5Yii0eUpcxE/TAzWUBR0rPz9iYD2zwrE1heTYnjxorySuIPSvU7JxZxL8H5z3zRXlTbWlwfhAYzA9Ola3OixfnNZHcGn3xXsdSm7i+uCizwIXnVLARaCM/04P4DerrA1s5dyhIxLvdXoQOSWw2PCnPRJuk4QxQGlSvj5bfJ3HlX+TCqJUmtPuzx0j0MZj7tjVwmNFYwjAm8aNrViu747i9yaXy0zIX0OQ943hOSXDmn0OecA+1fxU5Bcf2YG7paEYcqRZt6ntzMTBZqCo5lN+PYaqIBDezwMJvsu0OW0sgutawKg=</X509Certificate>
+         </X509Data>
+      </KeyInfo>
+   </Signature>
+</Invoice>

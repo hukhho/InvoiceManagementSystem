@@ -48,7 +48,31 @@
 
 
 <main>
-
+    <h1>Excel Files</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>File Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="file : ${files}">
+            <td th:text="${file.id}"></td>
+            <td th:text="${file.name}"></td>
+            <td th:text="${file.description}"></td>
+            <td th:text="${file.fileName}"></td>
+            <td>
+                <a th:href="@{/edit/{id}(id=${file.id})}">Edit</a>
+                <a th:href="@{/delete/{id}(id=${file.id})}" onclick="return confirm('Are you sure you want to delete this file?')">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/add">Add File</a>
 </main>
 </body>
 </html>
