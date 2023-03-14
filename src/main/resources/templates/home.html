@@ -48,31 +48,33 @@
 
 
 <main>
+
     <h1>Excel Files</h1>
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>File Name</th>
-            <th>Actions</th>
+            <th>Upload Date</th>
+            <th>Last Modified Date</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="file : ${files}">
-            <td th:text="${file.id}"></td>
-            <td th:text="${file.name}"></td>
-            <td th:text="${file.description}"></td>
-            <td th:text="${file.fileName}"></td>
+        <tr th:each="excelFile : ${excelFiles}">
+            <td th:text="${excelFile.id}"></td>
+            <td th:text="${excelFile.name}"></td>
+            <td th:text="${excelFile.uploadDate}"></td>
+            <td th:text="${excelFile.lastModifiedDate}"></td>
             <td>
-                <a th:href="@{/edit/{id}(id=${file.id})}">Edit</a>
-                <a th:href="@{/delete/{id}(id=${file.id})}" onclick="return confirm('Are you sure you want to delete this file?')">Delete</a>
+                <a th:href="@{/excelFiles/{id}/download(id=${excelFile.id})}">Download</a>
+                <a th:href="@{/excelFiles/{id}/delete(id=${excelFile.id})}">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="/add">Add File</a>
+    <a href="/excelFiles/upload">Upload New File</a>
+
 </main>
 </body>
 </html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title th:if="${excelFile.id}">Update Excel file</title>
+  <title th:unless="${excelFile.id}">Create Excel file</title>
+</head>
+<body>
+<h1 th:if="${excelFile.id}">Update Excel file</h1>
+<h1 th:unless="${excelFile.id}">Create Excel file</h1>
+<form method="post" th:action="@{/excel-files/{id}/update(id=${excelFile.id})}" enctype="multipart/form-data">
+  <input type="hidden" th:if="${excelFile.id}" th:field="${excelFile.id}"/>
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="${excelFile.name}" required/>
+  </div>
+  <div>
+    <label for="file">Excel file:</label>
+    <input type="file" id="file" name="file" accept=".xls,.xlsx"/>
+    <a th:if="${excelFile.templateFile}" th:href="@{/excel-files/{id}/download(id=${excelFile.id})}">Download</a>
+  </div>
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>

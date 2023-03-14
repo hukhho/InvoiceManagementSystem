@@ -7,6 +7,7 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -158,5 +159,15 @@ public class Content {
     @XmlElement(name = "SignDate")
     private String signDate;
     // getters and setters
+
+    public String getCellValue(String fieldName) {
+        try {
+            Field field = this.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return (String) field.get(this);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return null;
+        }
+    }
 
 }
