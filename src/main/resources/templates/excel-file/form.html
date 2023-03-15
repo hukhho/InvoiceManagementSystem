@@ -8,7 +8,7 @@
 <body>
 <h1 th:if="${excelFile.id}">Update Excel file</h1>
 <h1 th:unless="${excelFile.id}">Create Excel file</h1>
-<form method="post" th:action="@{/excel-files/{id}/update(id=${excelFile.id})}" enctype="multipart/form-data">
+<form method="post" th:action="@{ ${excelFile.id != null ? '/excel-files/' + excelFile.id + '/update' : '/excel-files/create'} }" enctype="multipart/form-data">
   <input type="hidden" th:if="${excelFile.id}" th:field="${excelFile.id}"/>
   <div>
     <label for="name">Name:</label>

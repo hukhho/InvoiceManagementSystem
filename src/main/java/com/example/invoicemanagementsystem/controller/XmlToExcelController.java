@@ -8,6 +8,7 @@ import com.example.invoicemanagementsystem.ultils.ExcelUtils;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.catalina.core.ApplicationContext;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.tomcat.util.file.ConfigurationSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,22 +68,24 @@ public class XmlToExcelController {
         Invoice invoice = (Invoice) marshaller.unmarshal(new StreamSource(xmlInputStream));
 
         // Load Excel template file
-        ClassPathResource excelTemplateStream = new ClassPathResource("template.xlsx");
-        InputStream templateStream = excelTemplateStream.getInputStream();
+//        ClassPathResource excelTemplateStream = new ClassPathResource("template.xlsx");
+//        InputStream templateStream = excelTemplateStream.getInputStream();
 
         //InputStream templateStream = new FileInputStream("template.xlsx");
-        XSSFWorkbook workbook = new XSSFWorkbook(templateStream);
-        XSSFSheet sheet = workbook.getSheetAt(0);
+//        XSSFWorkbook workbook = new XSSFWorkbook(templateStream);
+//        XSSFSheet sheet = workbook.getSheetAt(0);
 
         ExcelTemplate excelTemplate = excelTemplateRepository.findById(3L)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid excelTemplate"));;
+        XSSFWorkbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelTemplate.getTemplateFile()));
+        XSSFSheet worksheet = workbook.getSheetAt(0); // Assuming the cell is in the first sheet
 
         excelTemplate.getCells().forEach(excelCell -> {
             String cellReference = excelCell.getCellReference();
             int[] rowAndColumn = ExcelUtils.cellReferenceToRowAndColumn(cellReference);
             int row = rowAndColumn[0];
             int col = rowAndColumn[1];
-            XSSFCell cell = sheet.getRow(row).getCell(col);
+            XSSFCell cell = worksheet.getRow(row).getCell(col);
             cell.setCellValue(invoice.getContent().getCellValue(excelCell.getCellValue()));
         });
 
