@@ -62,6 +62,13 @@
 <!--            <artifactId>mysql-connector-j</artifactId>-->
 <!--            <scope>runtime</scope>-->
 <!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/cn.4coder/easyxls -->
+        <dependency>
+            <groupId>cn.4coder</groupId>
+            <artifactId>easyxls</artifactId>
+            <version>0.0.3</version>
+        </dependency>
+
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
