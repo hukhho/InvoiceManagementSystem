@@ -3,6 +3,8 @@ package com.example.invoicemanagementsystem.dto;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.lang.reflect.Field;
+
 
 @XmlRootElement(name = "Product")
 public class Product {
@@ -121,4 +123,17 @@ public class Product {
     public void setIsDiscountRow(int isDiscountRow) {
         this.isDiscountRow = isDiscountRow;
     }
+
+
+
+    public String getCellValue(String fieldName) {
+        try {
+            Field field = this.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return (String) field.get(this);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return null;
+        }
+    }
+
 }

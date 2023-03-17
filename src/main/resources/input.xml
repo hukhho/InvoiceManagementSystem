@@ -48,6 +48,30 @@
             <Amount>6666667</Amount>
             <IsDiscountRow>0</IsDiscountRow>
          </Product>
+         <Product>
+            <Code />
+            <ProdName>Rau các loại1</ProdName>
+            <ProdPrice>23809.525</ProdPrice>
+            <ProdQuantity>280</ProdQuantity>
+            <ProdType>1</ProdType>
+            <ProdUnit>kg</ProdUnit>
+            <Pos>1</Pos>
+            <Total>6666667</Total>
+            <Amount>6666667</Amount>
+            <IsDiscountRow>0</IsDiscountRow>
+         </Product>
+         <Product>
+            <Code />
+            <ProdName>Rau các loại2</ProdName>
+            <ProdPrice>23809.525</ProdPrice>
+            <ProdQuantity>280</ProdQuantity>
+            <ProdType>1</ProdType>
+            <ProdUnit>kg</ProdUnit>
+            <Pos>1</Pos>
+            <Total>6666667</Total>
+            <Amount>6666667</Amount>
+            <IsDiscountRow>0</IsDiscountRow>
+         </Product>
       </Products>
       <GrossValue>0</GrossValue>
       <GrossValue0>0</GrossValue0>

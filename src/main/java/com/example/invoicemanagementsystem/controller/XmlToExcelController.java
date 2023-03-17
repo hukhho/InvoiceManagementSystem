@@ -2,6 +2,7 @@ package com.example.invoicemanagementsystem.controller;
 
 import com.example.invoicemanagementsystem.dto.Content;
 import com.example.invoicemanagementsystem.dto.Invoice;
+import com.example.invoicemanagementsystem.dto.Product;
 import com.example.invoicemanagementsystem.entity.ExcelTemplate;
 import com.example.invoicemanagementsystem.repository.ExcelTemplateRepository;
 import com.example.invoicemanagementsystem.ultils.ExcelUtils;
@@ -48,6 +49,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/convert")
@@ -67,28 +69,38 @@ public class XmlToExcelController {
 
         Invoice invoice = (Invoice) marshaller.unmarshal(new StreamSource(xmlInputStream));
 
-        // Load Excel template file
-//        ClassPathResource excelTemplateStream = new ClassPathResource("template.xlsx");
-//        InputStream templateStream = excelTemplateStream.getInputStream();
+        List<Product> products = invoice.getContent().getProducts();
 
-        //InputStream templateStream = new FileInputStream("template.xlsx");
-//        XSSFWorkbook workbook = new XSSFWorkbook(templateStream);
-//        XSSFSheet sheet = workbook.getSheetAt(0);
-
-        ExcelTemplate excelTemplate = excelTemplateRepository.findById(3L)
+        ExcelTemplate excelTemplate = excelTemplateRepository.findById(5L)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid excelTemplate"));;
         XSSFWorkbook workbook = new XSSFWorkbook(new ByteArrayInputStream(excelTemplate.getTemplateFile()));
         XSSFSheet worksheet = workbook.getSheetAt(0); // Assuming the cell is in the first sheet
 
         excelTemplate.getCells().forEach(excelCell -> {
-            String cellReference = excelCell.getCellReference();
-            int[] rowAndColumn = ExcelUtils.cellReferenceToRowAndColumn(cellReference);
-            int row = rowAndColumn[0];
-            int col = rowAndColumn[1];
-            XSSFCell cell = worksheet.getRow(row).getCell(col);
-            cell.setCellValue(invoice.getContent().getCellValue(excelCell.getCellValue()));
-        });
+            String prefix = "products.";
+            if (excelCell.getCellValue().startsWith(prefix)) {
+                String result = excelCell.getCellValue().substring(prefix.length());
 
+                String cellReference = excelCell.getCellReference();
+                int[] rowAndColumn = ExcelUtils.cellReferenceToRowAndColumn(cellReference);
+                int row = rowAndColumn[0];
+                int col = rowAndColumn[1];
+
+                for (Product pro : products) {
+                    XSSFCell cell = worksheet.getRow(row).getCell(col);
+                    cell.setCellValue(pro.getCellValue(result));
+                    System.out.print("Set value " + pro.getCellValue(result) + " to row " + row  + " col  " + col);
+                    row++; // increment row index for next cell
+                }
+            } else {
+                String cellReference = excelCell.getCellReference();
+                int[] rowAndColumn = ExcelUtils.cellReferenceToRowAndColumn(cellReference);
+                int row = rowAndColumn[0];
+                int col = rowAndColumn[1];
+                XSSFCell cell = worksheet.getRow(row).getCell(col);
+                cell.setCellValue(invoice.getContent().getCellValue(excelCell.getCellValue()));
+            }
+        });
         // Write Excel data to output stream
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-disposition", "attachment; filename=output.xlsx");

@@ -170,4 +170,8 @@ public class Content {
         }
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
 }
