@@ -8,24 +8,38 @@
 
   <title th:if="${excelFile.id}">Update Excel file</title>
   <title th:unless="${excelFile.id}">Create Excel file</title>
+  <style>
+    main {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
-<body>
 <div th:replace="home :: header"></div>
-
-<h1 th:if="${excelFile.id}">Update Excel file</h1>
-<h1 th:unless="${excelFile.id}">Create Excel file</h1>
+<body class="bg-gray-100">
+<main>
+<h1 class="text-2xl font-bold text-gray-800 my-4" th:if="${excelFile.id}">Update Excel file</h1>
+<h1 class="text-2xl font-bold text-gray-800 my-4" th:unless="${excelFile.id}">Create Excel file</h1>
 <form method="post" th:action="@{ ${excelFile.id != null ? '/excel-files/' + excelFile.id + '/update' : '/excel-files/create'} }" enctype="multipart/form-data">
   <input type="hidden" th:if="${excelFile.id}" th:field="${excelFile.id}"/>
-  <div>
-    <label for="name">Name:</label>
-    <input type="text" id="name" th:field="${excelFile.name}" required/>
+  <div class="my-4">
+    <label for="name" class="text-gray-700 font-bold">Name:</label>
+    <input type="text" id="name" th:field="${excelFile.name}" required class="block w-full px-4 py-2 rounded-lg border-gray-300 focus:border-green-500 focus:outline-none focus:shadow-outline-green"/>
   </div>
-  <div>
-    <label for="file">Excel file:</label>
-    <input type="file" id="file" name="file" accept=".xls,.xlsx"/>
-    <a th:if="${excelFile.templateFile}" th:href="@{/excel-files/{id}/download(id=${excelFile.id})}">Download</a>
+  <div class="my-4">
+    <label for="file" class="text-gray-700 font-bold">Excel file:</label>
+    <input type="file" id="file" name="file" accept=".xls,.xlsx" class="block w-full px-4 py-2 rounded-lg border-gray-300 focus:border-green-500 focus:outline-none focus:shadow-outline-green"/>
+    <a th:if="${excelFile.templateFile}" th:href="@{/excel-files/{id}/download(id=${excelFile.id})}" class="text-green-500 underline">Download</a>
   </div>
-  <button type="submit">Save</button>
+  <button type="submit" class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-700 focus:bg-green-700">Save</button>
 </form>
+</main>
 </body>
 </html>

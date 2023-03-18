@@ -11,31 +11,42 @@
 
 <div th:replace="home :: header"></div>
 
-<h1>Danh sách các file excel</h1>
-<a th:href="@{/excel-files/create}">Thêm file Excel</a>
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Tên file</th>
-    <th>Hành động</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="excelFile : ${excelFiles}">
-    <td th:text="${excelFile.id}"></td>
-    <td th:text="${excelFile.name}"></td>
+<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+  <h1 class="text-3xl font-bold leading-tight text-gray-900">Danh sách các file excel</h1>
+  <a th:href="@{/excel-files/create}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4" th:if="${isAdmin}">Thêm file Excel</a>
 
-    <td>
-      <a th:if="${excelFile.templateFile}" th:href="@{/excel-files/{id}/download(id=${excelFile.id})}">Download</a>
+  <div class="overflow-x-auto">
+    <table class="table-auto border border-gray-200">
+      <thead>
+      <tr class="bg-gray-100">
+        <th class="px-4 py-2">ID</th>
+        <th class="px-4 py-2">Tên file</th>
+        <th class="px-4 py-2">Hành động</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="excelFile : ${excelFiles}">
+        <td class="border px-4 py-2" th:text="${excelFile.id}"></td>
+        <td class="border px-4 py-2" th:text="${excelFile.name}"></td>
+        <td class="border px-4 py-2">
+          <a th:if="${excelFile.templateFile}" th:href="@{/excel-files/{id}/download(id=${excelFile.id})}" class="text-blue-600 hover:text-blue-900 mr-2">Download</a>
 
-      <a th:href="@{/excel-files/{id}/update(id=${excelFile.id})}">Sửa</a> |
-      <a th:href="@{/excel-cells/{id}(id=${excelFile.id})}">Quản lý excel cells</a> |
+          <a th:href="@{/excel-files/{id}/update(id=${excelFile.id})}" class="text-blue-600 hover:text-blue-900 mr-2" th:if="${isAdmin}">Sửa</a>
 
-      <a th:href="@{/excel-files/{id}/delete(id=${excelFile.id})}" onclick="return confirm('Bạn có chắc muốn xoá file này không?')">Delete</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+          <a th:href="@{/excel-cells/{id}(id=${excelFile.id})}" class="text-blue-600 hover:text-blue-900 mr-2" th:if="${isAdmin}">Quản lý excel cells</a>
+
+          <a th:href="@{/excel-files/{id}/delete(id=${excelFile.id})}" onclick="return confirm('Bạn có chắc muốn xoá file này không?')" class="text-red-600 hover:text-red-900" th:if="${isAdmin}">Delete</a>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
 </body>
 </html>

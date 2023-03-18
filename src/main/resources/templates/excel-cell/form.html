@@ -61,14 +61,14 @@
   <form th:object="${content}" method="post" th:action="@{/excel-cells/create/{id}(id=${excelTemplate.id})}">
     <div class="form-group">
       <label for="fieldName">Field Name:</label>
-      <select id="fieldName" name="cellReference" class="form-control">
+      <select id="fieldName" name="value" class="form-control">
         <option value="">Select a field name</option>
         <option th:each="fieldName : ${fieldNames}" th:value="${fieldName}" th:text="${fieldName}"></option>
       </select>
     </div>
     <div class="form-group">
       <label for="cellReference">cellReference:</label>
-      <input type="text" id="cellReference" name="value" class="form-control" required/>
+      <input type="text" id="cellReference" name="cellReference" class="form-control" required/>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
@@ -77,9 +77,7 @@
   <div class="container mx-auto mt-8">
     <h1 class="text-2xl font-bold mb-8">Excel Cell List</h1>
     <div class="flex justify-between items-center mb-4">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" th:href="@{/create}">
-        Add New Excel Cell
-      </button>
+
       <form class="flex w-1/3">
         <input class="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" type="text" placeholder="Search">
         <button class="px-8 rounded-r-lg bg-green-400 text-gray-800 font-bold p-4 uppercase border-green-500 border-t border-b border-r hover:bg-green-500 hover:text-white">

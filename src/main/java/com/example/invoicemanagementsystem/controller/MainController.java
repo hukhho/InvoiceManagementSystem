@@ -1,6 +1,7 @@
 package com.example.invoicemanagementsystem.controller;
 
 
+import com.example.invoicemanagementsystem.entity.Admin;
 import com.example.invoicemanagementsystem.entity.Seller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,20 @@ public class MainController {
     @RequestMapping("")
     public String home(HttpSession session, Model model) {
         Seller seller = (Seller) session.getAttribute("seller");
-        if (seller == null) {
+        Admin admin = (Admin) session.getAttribute("admin");
+
+        if (seller == null && admin == null) {
             return "redirect:/auth/login";
         }
-        model.addAttribute("username", seller.getUsername());
+        String username = "";
+        if (seller != null ) {
+            username = seller.getUsername();
+        } else {
+            username = admin.getUsername();
+
+        }
+        model.addAttribute("username", username);
+
         return "home";
     }
 }

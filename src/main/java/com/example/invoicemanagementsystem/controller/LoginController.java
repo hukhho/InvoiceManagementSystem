@@ -1,6 +1,8 @@
 package com.example.invoicemanagementsystem.controller;
 
+import com.example.invoicemanagementsystem.entity.Admin;
 import com.example.invoicemanagementsystem.entity.Seller;
+import com.example.invoicemanagementsystem.repository.AdminRepository;
 import com.example.invoicemanagementsystem.repository.SellerRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class LoginController{
     @Autowired
     SellerRepository sellerRepository;
+    @Autowired
+    AdminRepository adminRepository;
 
     @RequestMapping(value = "/login")
     public String showLoginForm() {
@@ -30,6 +34,7 @@ public class LoginController{
                         HttpSession session, Model model) {
 
         Optional<Seller> optionalUser = sellerRepository.findByUsername(username);
+        Optional<Admin> optionalAdmin = adminRepository.findByUsername(username);
 
         if (optionalUser.isPresent()) {
             Seller seller = optionalUser.get();
@@ -38,6 +43,16 @@ public class LoginController{
                 return "redirect:/home";
             }
         }
+
+        if (optionalAdmin.isPresent()) {
+            Admin admin = optionalAdmin.get();
+            if (password.equals(admin.getPassword())) {
+                session.setAttribute("admin", admin);
+                return "redirect:/home";
+            }
+        }
+
+
         model.addAttribute("error", "Sai tài khoản hoặc mật khẩu!");
 
         return "login";

@@ -11,20 +11,39 @@
 
 <div th:replace="home :: header"></div>
 
-<h1>Convert XML file</h1>
-<form method="post" th:action="@{/convert}" enctype="multipart/form-data">
-    <select name="templateId">
-        <option th:each="template : ${excelTemplateList}"
-                th:value="${template.id}"
-                th:text="${template.name}"
-                th:selected="${template.id == defaultTemplateId}">
-        </option>
-    </select>
-    <div>
-        <label for="file">XML file:</label>
-        <input type="file" id="file" name="xmlFile" accept=".xml"/>
+<div class="container mx-auto py-20">
+    <div class="bg-white mx-auto max-w-lg shadow-lg rounded-lg overflow-hidden">
+        <div class="bg-gray-200 text-gray-700 uppercase text-lg font-bold py-3 px-4">
+            Convert XML file
+        </div>
+        <form method="post" th:action="@{/convert}" enctype="multipart/form-data" class="py-4 px-6">
+            <div class="mb-4">
+                <label for="template" class="block text-gray-700 font-bold mb-2">Template:</label>
+                <select name="templateId" id="template" class="w-full p-2 border rounded-md">
+                    <option th:each="template : ${excelTemplateList}"
+                            th:value="${template.id}"
+                            th:text="${template.name}"
+                            th:selected="${template.id == defaultTemplateId}">
+                    </option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="file" class="block text-gray-700 font-bold mb-2">XML file:</label>
+                <input type="file" id="file" name="xmlFile" accept=".xml" class="w-full p-2 border rounded-md">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="py-2 px-4 bg-blue-500 text-white font-bold rounded hover:bg-blue-700">Save</button>
+            </div>
+        </form>
     </div>
-    <button type="submit">Save</button>
-</form>
+</div>
+
+
+
+
+
+
+
+
 </body>
 </html>
