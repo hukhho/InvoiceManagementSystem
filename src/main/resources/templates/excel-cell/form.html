@@ -2,25 +2,76 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
   <title th:unless="${excelTemplate?.id}">Update Excell Cells</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F5F5F5;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .formChung {
+      margin: 2rem auto;
+      max-width: 600px;
+      padding: 2rem;
+      background-color: #FFFFFF;
+      box-shadow: 0px 0px 20px #CCCCCC;
+      border-radius: 10px;
+      display: flex;
+    }
+
+    label {
+      font-weight: 500;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    #fieldNameProductsContainer {
+      margin-top: 1rem;
+    }
+
+    .btn-primary {
+      background-color: #00A1E4;
+      border-color: #00A1E4;
+      font-weight: bold;
+      padding: 0.5rem 2rem;
+      margin-top: 2rem;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+  </style>
 </head>
 <body>
+<div th:replace="home :: header"></div>
+
   <h1>Create Excell Cells</h1>
-  <form th:object="${content}" method="post">
+  <form th:object="${content}" method="post" th:action="@{/excel-cells/create/{id}(id=${excelTemplate.id})}">
     <div class="form-group">
-      <label for="cellReference">Cell Reference:</label>
-      <select id="cellReference" name="cellReference" class="form-control">
-        <option value="">Select a Cell Reference</option>
+      <label for="fieldName">Field Name:</label>
+      <select id="fieldName" name="cellReference" class="form-control">
+        <option value="">Select a field name</option>
         <option th:each="fieldName : ${fieldNames}" th:value="${fieldName}" th:text="${fieldName}"></option>
       </select>
     </div>
     <div class="form-group">
-      <label for="value">Value:</label>
-      <input type="text" id="value" name="value" class="form-control" required/>
+      <label for="cellReference">cellReference:</label>
+      <input type="text" id="cellReference" name="value" class="form-control" required/>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-
 
 
   <div class="container mx-auto mt-8">
@@ -53,9 +104,21 @@
         <td class="px-8 py-4" th:text="${excelCell?.cellReference}"></td>
         <td class="px-8 py-4" th:text="${excelCell?.cellValue}"></td>
         <td class="px-8 py-4">
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" th:href="@{/edit/{id}(id=${excelCell.id})}">
-            Edit
-          </button>
+          <div  class="formChung" >
+            <form method="get" th:action="@{/excel-cells/edit/{id}(id=${excelCell.id})}">
+              <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2">
+                Edit
+              </button>
+            </form>
+            <!--          <a th:href="@{/excel-cells/delete/{id}(id=${excelCell.id})}" onclick="return confirm('Are you sure you want to delete this Excel file?')">Delete</a>-->
+            <form method="get" th:action="@{/excel-cells/delete/{id}(id=${excelCell.id})}">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2">
+                Delete
+              </button>
+            </form>
+          </div>
+
+
         </td>
       </tr>
       </tbody>

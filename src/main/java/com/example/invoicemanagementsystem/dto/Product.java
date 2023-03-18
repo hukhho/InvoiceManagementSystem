@@ -126,11 +126,11 @@ public class Product {
 
 
 
-    public String getCellValue(String fieldName) {
+    public Object getCellValue(String fieldName) {
         try {
             Field field = this.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
-            return (String) field.get(this);
+            return field.get(this);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             return null;
         }
