@@ -16,6 +16,12 @@
         <div class="bg-gray-200 text-gray-700 uppercase text-lg font-bold py-3 px-4">
             Convert XML file
         </div>
+        <p class="block text-gray-700 font-bold mb-2">Price: 5000 vnd/ convert success</p>
+        <!-- check for error message and show alert if exists -->
+        <script th:if="${param.errorMess}">
+            alert('Not enough balance');
+        </script>
+
         <form method="post" th:action="@{/convert}" enctype="multipart/form-data" class="py-4 px-6">
             <div class="mb-4">
                 <label for="template" class="block text-gray-700 font-bold mb-2">Template:</label>

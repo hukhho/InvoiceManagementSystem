@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Error
+    </title>
+</head>
+<body>
+
+<div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+
+<main class="grid min-h-full place-items-center bg-white py-24 px-6 sm:py-32 lg:px-8">
+    <div class="text-center">
+        <p class="text-base font-semibold text-indigo-600">Error</p>
+        <p class="mt-6 text-base leading-7 text-gray-600" th:if="${errorMess}" th:text="${errorMess}"></p>
+        <div class="mt-10 flex items-center justify-center gap-x-6">
+            <a th:href="@{/}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Go back home</a>
+            <a href="#" class="text-sm font-semibold text-gray-900">Contact support <span aria-hidden="true">&rarr;</span></a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

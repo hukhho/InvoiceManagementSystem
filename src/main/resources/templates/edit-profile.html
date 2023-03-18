@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<div th:replace="home :: header"></div>
+
+<body >
+<div class="bg-gray-200 flex flex-col items-center justify-center h-s creen">
+<div class="bg-white p-6 rounded-lg shadow-lg">
+  <h1 class="text-2xl font-bold mb-4">Edit Profile</h1>
+
+  <div class="mt-5 m-5 p-10">
+    <p class="font-bold mb-2">Show Balance:</p>
+    <p class="m-5" th:text="${user.amount}">$500.00</p>
+
+<!--    <button id="deposit-btn">Deposit</button>-->
+
+<a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 py-5 px-5 rounded" id="deposit-btn">Deposit Money</a>
+  </div>
+  <!-- Modal -->
+
+  <!-- Modal -->
+<!--  <div id="deposit-modal" class="modal">-->
+<!--    <div class="modal-content">-->
+<!--      <span class="close">&times;</span>-->
+<!--      <p>Enter amount to deposit:</p>-->
+<!--      <input type="text" id="deposit-amount">-->
+<!--      <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 py-5 px-5 rounded" id="submit-deposit">Submit</a>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <!-- Modal -->
+  <div id="deposit-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Enter amount to deposit:</p>
+      <input type="number" id="deposit-amount">
+      <button id="submit-deposit">Deposit</button>
+    </div>
+  </div>
+<script>// Get the modal element
+var modal = document.getElementById("deposit-modal");
+
+// Get the button that opens the modal
+var depositBtn = document.getElementById("deposit-btn");
+
+// Get the <span> element that closes the modal
+var closeBtn = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+depositBtn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// When the user clicks the "Deposit" button in the modal, submit the deposit amount
+var submitBtn = document.getElementById("submit-deposit");
+submitBtn.onclick = function() {
+  var amount = document.getElementById("deposit-amount").value;
+  var url = "/payment/deposit?amount=" + amount;
+  window.location.href = url;
+}
+</script>
+
+
+
+  <form class="space-y-4 mt-10" method="POST" th:action="@{/edit-profile}" th:object="${user}">
+    <div>
+      <label class="block font-bold mb-2" for="fullName">Full Name:</label>
+      <input class="w-full rounded-lg border-gray-400 py-2 px-4" type="text" id="fullName" name="fullName" th:field="*{fullName}" required />
+    </div>
+    <div>
+      <label class="block font-bold mb-2" for="email">Email:</label>
+      <input class="w-full rounded-lg border-gray-400 py-2 px-4" type="email" id="email" name="email" th:field="*{email}" required />
+    </div>
+    <div>
+      <label class="block font-bold mb-2" for="changePassword">Change Password:</label>
+      <input class="rounded" type="checkbox" id="changePassword" name="changePassword" onchange="togglePasswordFields()" />
+    </div>
+
+    <span th:if="${errorMess}" th:text="${errorMess}" class="text-red-500 text-sm"></span>
+
+    <div id="passwordFields" style="display: none;">
+      <div>
+        <label class="block font-bold mb-2" for="password">Old Password:</label>
+        <input class="w-full rounded-lg border-gray-400 py-2 px-4" type="password" id="oldPassword" name="oldPassword" />
+      </div>
+      <div>
+        <label class="block font-bold mb-2" for="password">New Password:</label>
+        <input class="w-full rounded-lg border-gray-400 py-2 px-4" type="password" id="password" name="password" th:field="*{password}"/>
+      </div>
+      <div>
+        <label class="block font-bold mb-2" for="confirmPassword">Confirm Password:</label>
+        <input class="w-full rounded-lg border-gray-400 py-2 px-4" type="password" id="confirmPassword" name="confirmPassword" />
+
+      </div>
+    </div>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Save Changes</button>
+    <div th:if="${#fields.hasErrors()}">
+      <p th:each="error : ${#fields.errors()}" th:text="${error}"></p>
+    </div>
+    <p></p>
+  </form>
+</div>
+<script>
+  function togglePasswordFields() {
+    var passwordFields = document.getElementById("passwordFields");
+    if (document.getElementById("changePassword").checked) {
+      passwordFields.style.display = "block";
+    } else {
+      passwordFields.style.display = "none";
+    }
+  }
+</script>
+</div>
+</body>
+</html>

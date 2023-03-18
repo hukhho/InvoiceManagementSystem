@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Trang thanh toán
+  </title>
+</head>
+<body>
+
+<div th:replace="home :: header"></div>
+
+<p th:text="${message}"></p>
+<p class="text-sm mt-4"><a th:href="@{/edit-profile}" class="text-blue-500 hover:text-blue-700">Bấm vào đây để trở về <profile></profile></a></p>
+
+</body>
+</html>

@@ -1,9 +1,6 @@
 package com.example.invoicemanagementsystem.controller;
 
-import com.example.invoicemanagementsystem.entity.Admin;
-import com.example.invoicemanagementsystem.entity.ExcelTemplate;
-import com.example.invoicemanagementsystem.entity.Files;
-import com.example.invoicemanagementsystem.entity.Seller;
+import com.example.invoicemanagementsystem.entity.*;
 import com.example.invoicemanagementsystem.service.ExcelFileService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +28,16 @@ public class ExcelsTemplateController {
 
     @GetMapping
     public String list(Model model, HttpSession session) {
-        Seller seller = (Seller) session.getAttribute("seller");
-        Admin admin = (Admin) session.getAttribute("admin");
+        Users user = (Users) session.getAttribute("user");
 
-        if (seller == null && admin == null) {
+        if (user == null) {
             return "redirect:/auth/login";
         }
+        String username = user.getUsername();
 
-        boolean isAdmin = false;
-        if (admin != null) {
-            isAdmin = true;
-        }
+        boolean isAdmin = user.isAdmin();
+
         model.addAttribute("isAdmin", isAdmin);
-
         model.addAttribute("excelFiles", excelFileService.getAllExcelFiles());
         List<ExcelTemplate> excelFiles = excelFileService.getAllExcelFiles();
         model.addAttribute("excelFiles", excelFiles);
@@ -52,25 +46,30 @@ public class ExcelsTemplateController {
 
     @RequestMapping("/create")
     public String createForm(Model model, HttpSession session) {
-        Admin admin = (Admin) session.getAttribute("admin");
+        Users user = (Users) session.getAttribute("user");
 
-        if (admin == null) {
+        if (user == null) {
             return "redirect:/auth/login";
         }
-
+        if (!user.isAdmin()) {
+            return "redirect:/auth/login";
+        }
 
         ExcelTemplate excelFile = new ExcelTemplate();
         excelFile.setName("hello");
         model.addAttribute("excelFile", excelFile);
+
         return "excel-file/form";
     }
-
     @PostMapping("/create")
     public String create(HttpSession session, @ModelAttribute("excelFile") ExcelTemplate excelFile,
                          @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-        Admin admin = (Admin) session.getAttribute("admin");
+        Users user = (Users) session.getAttribute("user");
 
-        if (admin == null) {
+        if (user == null) {
+            return "redirect:/auth/login";
+        }
+        if (!user.isAdmin()) {
             return "redirect:/auth/login";
         }
         if (!file.isEmpty()) {
@@ -90,9 +89,12 @@ public class ExcelsTemplateController {
 
     @GetMapping("/{id}/update")
     public String updateForm(HttpSession session, @PathVariable("id") Long id, Model model) {
-        Admin admin = (Admin) session.getAttribute("admin");
+        Users user = (Users) session.getAttribute("user");
 
-        if (admin == null) {
+        if (user == null) {
+            return "redirect:/auth/login";
+        }
+        if (!user.isAdmin()) {
             return "redirect:/auth/login";
         }
 
@@ -108,9 +110,12 @@ public class ExcelsTemplateController {
     @PostMapping("/{id}/update")
     public String update(HttpSession session, @PathVariable("id") Long id, @ModelAttribute("excelFile") ExcelTemplate excelFile,
                          @RequestParam(value = "file", required = false) MultipartFile file, RedirectAttributes redirectAttributes) {
-        Admin admin = (Admin) session.getAttribute("admin");
+        Users user = (Users) session.getAttribute("user");
 
-        if (admin == null) {
+        if (user == null) {
+            return "redirect:/auth/login";
+        }
+        if (!user.isAdmin()) {
             return "redirect:/auth/login";
         }
 
@@ -138,9 +143,12 @@ public class ExcelsTemplateController {
 
     @GetMapping("/{id}/delete")
     public String delete(HttpSession session, @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Admin admin = (Admin) session.getAttribute("admin");
+        Users user = (Users) session.getAttribute("user");
 
-        if (admin == null) {
+        if (user == null) {
+            return "redirect:/auth/login";
+        }
+        if (!user.isAdmin()) {
             return "redirect:/auth/login";
         }
 
@@ -155,7 +163,13 @@ public class ExcelsTemplateController {
     }
 
     @GetMapping("/{id}/download")
-    public ResponseEntity<ByteArrayResource> downloadExcelFile(@PathVariable Long id) {
+    public ResponseEntity<ByteArrayResource> downloadExcelFile(HttpSession session, @PathVariable Long id) {
+        Users user = (Users) session.getAttribute("user");
+
+        if (user == null) {
+            return ResponseEntity.status(403).build();
+        }
+
         ExcelTemplate excelFile = excelFileService.getExcelFileById(id) .orElseThrow(() -> new IllegalArgumentException("Invalid file Id:" + id));
 
         if (excelFile == null || excelFile.getTemplateFile() == null) {
